@@ -1,0 +1,20 @@
+# IDE and OS files
+.DS_Store
+.idea/
+.vscode/
+
+# Python / Environment
+venv/
+__pycache__/
+*.pyc
+
+# Large Model Files & Data
+*.bin
+*.vec
+*.gz
+*.ftz
+domain_corpus.txt
+domain_corpus_clean.txt
+
+# Tools and Repositories
+fasttext_project/fasttext-repo/
