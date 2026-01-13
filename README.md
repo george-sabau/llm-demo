@@ -60,6 +60,7 @@ Die eigentliche Erzeugung des künstlichen neuronalen Netzes.
 * **Output:** `rwa_semantic_model_100d.bin`.
 
 ---
+
 ## 🔍 4. Validierung & Visualisierung
 
 Nachdem das Modell trainiert wurde, stehen verschiedene Tools zur Verfügung, um die Qualität der gelernten Vektoren zu prüfen und die semantischen Beziehungen grafisch darzustellen.
@@ -74,16 +75,18 @@ Erzeugt eine visuelle Matrix der Wort-Vektoren.
 * **Output:** `rwa_model_heatmap.png`
 * **Details:** Visualisiert die Top-50 Wörter deines Katalogs. Jede Zeile repräsentiert ein Wort, jede Spalte eine der 100 Dimensionen. Ähnliche Farbmuster über die Zeilen hinweg zeigen an, dass das Modell diese Wörter als semantisch verwandt eingestuft hat.
 
-
+**Beispiel-Visualisierung:**
+![RWA Word Heatmap](rwa_model_heatmap.png)
 
 ### 🌐 Semantisches Netzwerk (`visualize_semantic_network.py`)
-Erstellt eine interaktive Cluster-Karte basierend auf dem t-SNE Algorithmus.
+Erstellt eine Cluster-Karte basierend auf dem t-SNE Algorithmus.
 * **Output:** `connected_bubble_map.png`
 * **Details:** Projiziert die 100-dimensionalen Vektoren auf eine 2D-Fläche.
-    * **Cluster:** Wörter werden automatisch in Gruppen (z.B. "Werkzeug", "Garten", "Baustoffe") farblich markiert.
-    * **Bubbles:** Die Größe der Kreise zeigt die Häufigkeit der Wörter im Korpus.
-    * **Verbindungen:** Linien/Pfeile zeigen die stärksten semantischen "Anziehungskräfte" zwischen Begriffen.
+  * **Cluster:** Wörter werden automatisch in Gruppen (z.B. "Werkzeug", "Garten", "Baustoffe") farblich markiert.
+  * **Bubbles:** Die Größe der Kreise zeigt die Häufigkeit der Wörter im Korpus.
+  * **Verbindungen:** Linien/Pfeile zeigen die stärksten semantischen "Anziehungskräfte" zwischen Begriffen.
 
-
+**Beispiel-Visualisierung:**
+![Connected Semantic Bubble Map](connected_bubble_map.png)
 
 ---
