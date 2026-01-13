@@ -28,6 +28,30 @@ def calculate_semantic_similarity(model_path, text1, text2):
     
     return round(float(similarity), 4)
 
+import fasttext
+import os
+
+def search_in_model_vocabulary(model_path, query_word, top_n=10):
+    if not os.path.exists(model_path):
+        print(f"Fehler: Modell {model_path} nicht gefunden.")
+        return
+
+    print(f"Lade Modell {model_path}...")
+    model = fasttext.load_model(model_path)
+
+    # get_nearest_neighbors liefert eine Liste von (Score, Wort)
+    print(f"Suche nach nächsten Nachbarn für: '{query_word}'...")
+    neighbors = model.get_nearest_neighbors(query_word, k=top_n)
+
+    print("\n" + "="*50)
+    print(f"TOP {top_n} SEMANTISCHE NACHBARN IM MODELL")
+    print("="*50)
+
+    for score, word in neighbors:
+        print(f"[{score:.4f}] {word}")
+
+    print("="*50)
+
 if __name__ == "__main__":
     # Settings
     MODEL_FILE = './rwa_semantic_model_100d.bin'
@@ -45,3 +69,5 @@ if __name__ == "__main__":
         print("-" * 33)
         print(f"Semantische Ähnlichkeit: {score}")
         print("-" * 33)
+
+    search_in_model_vocabulary(MODEL_FILE, QUERY, top_n=10)
