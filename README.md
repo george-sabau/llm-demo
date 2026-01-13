@@ -4,7 +4,7 @@ Dieses Projekt automatisiert die Erstellung eines domänenspezifischen Wort-Vekt
 
 ---
 
-## 🛠 1. System-Voraussetzungen & Setup
+## 🛠 1. Setup
 
 ### Python-Umgebung
 Das Projekt wurde für **Python 3.9+** optimiert. Um eine saubere Ausführung zu gewährleisten, sollte ein lokaler Interpreter (oder eine Virtual Environment) verwendet werden.
@@ -29,30 +29,30 @@ python3.9 -m pip install requests numpy pandas matplotlib seaborn scikit-learn f
 
 ---
 
-## 📈 2. Workflow & Skript-Reihenfolge
+## 📈 2. Workflow 
 
 Um das semantische Modell korrekt aufzubauen, müssen die Skripte in der folgenden numerischen Reihenfolge ausgeführt werden. Jedes Skript baut auf dem Output des vorherigen auf.
 
-### 1️⃣ Schritt 1: Basis-Modell vorbereiten (`download_base.py`)
+### 1️⃣ Schritt 1: Basis-Modell vorbereiten (`download_and_prepare.py`)
 Dieses Skript stellt sicher, dass das fundamentale Sprachwissen vorhanden ist.
 * **Was es tut:** Lädt das deutsche Facebook FastText-Modell (~4.2GB) herunter und entpackt es.
 * **Output:** `cc.de.300.bin` im Hauptverzeichnis.
 * **Wichtig:** Das Skript löscht die `.gz` Datei nach dem Entpacken automatisch, um Speicherplatz zu sparen.
 
-### 2️⃣ Schritt 2: Rohdaten-Extraktion (`fetch_solr_data.py`)
+### 2️⃣ Schritt 2: Domain-Korpus-Extraktion (`fetch_domain_corpus.py`)
 Verbindet sich mit dem RWA-Solr-Index, um die Produktinformationen zu exportieren.
 * **Was es tut:** Ruft ca. 163.000 Dokumente ab (Namen, Marken, SEO-Texte).
 * **Output:** `fasttext_project/domain_corpus.txt`.
 * **Hinweis:** Führt eine erste Wort-Deduplizierung innerhalb jeder Zeile durch.
 
-### 3️⃣ Schritt 3: Intensiv-Reinigung (`sanitize_corpus.py`)
+### 3️⃣ Schritt 3: Domain-Korpus Pre-Processing (`corpus_sanitizer.py`)
 Verwandelt den unstrukturierten Text in hochwertiges Trainingsmaterial.
 * **Was es tut:** * Entfernt Stoppwörter und Sonderzeichen.
     * Fügt Maßeinheiten zusammen (z.B. `10 kg` → `10kg`).
     * Normalisiert Dimensionen (z.B. `40 x 40` → `40x40`).
 * **Output:** `domain_corpus_clean.txt`.
 
-### 4️⃣ Schritt 4: Modell-Training & Transfer Learning (`train_semantic_model.py`)
+### 4️⃣ Schritt 4: Modell-Configuration & Training (`configure_and_train_model.py`)
 Die eigentliche Erzeugung des künstlichen neuronalen Netzes.
 * **Was es tut:** 1. Reduziert das Facebook-Modell auf **100 Dimensionen** (für effiziente RAM-Nutzung).
     2. Trainiert ein `skipgram`-Modell mit deinem Korpus unter Nutzung von **Pretrained Vectors**.
@@ -65,7 +65,7 @@ Die eigentliche Erzeugung des künstlichen neuronalen Netzes.
 
 Nachdem das Modell trainiert wurde, stehen verschiedene Tools zur Verfügung, um die Qualität der gelernten Vektoren zu prüfen und die semantischen Beziehungen grafisch darzustellen.
 
-### 🛠 Ähnlichkeits-Check (`compare_similarity.py`)
+### 🛠 Ähnlichkeits-Check (`compare_semantic.py`)
 Dieses Skript dient der mathematischen Überprüfung deines Modells.
 * **Funktion:** Berechnet die **Cosine-Similarity** (Werte von 0.0 bis 1.0) zwischen zwei beliebigen Begriffen oder ganzen Sätzen.
 * **Anwendung:** Ideal, um zu testen, wie stark das Modell Fachbegriffe (z.B. "Granitplatte") mit ihren Attributen (z.B. "Naturstein") verknüpft.
