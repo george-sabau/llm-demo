@@ -10,7 +10,7 @@ ROWS_PER_PAGE = 2000
 TOTAL_ROWS = 163238
 
 # Fields we want to extract
-FIELDS = ["brand_string", "seoText_text_de_mv", "name_text_de", "allVariantNames_text_de_mv", "otns_string_mv"]
+FIELDS = ["brand_string", "seoText_text_de_mv", "name_text_de", "allVariantNames_text_de_mv", "otns_string_mv","description_dext_de", "allReferenceNames_text_de_mv", "allVariantNames_text_de_mv"]
 
 def clean_and_export():
     # Ensure directory exists

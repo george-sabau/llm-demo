@@ -56,7 +56,7 @@ if __name__ == "__main__":
     # Settings
     MODEL_FILE = './rwa_semantic_model_100d.bin'
     
-    QUERY = "sucro 40x40 granit"
+    QUERY = "granit 60x60 cm"
     PRODUCT = "casafino stufenplatte siano scuro terrassenplatte gartenplatte betonplatte 40x40"
 
     print("Vergleiche...")
