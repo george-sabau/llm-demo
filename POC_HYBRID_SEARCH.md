@@ -18,9 +18,9 @@ Their similarity is computed mathematically and combined with the keyword score 
 
 The semantic similarity between a query vector **Q** and a document vector **D** is calculated using **cosine similarity**:
 
-\[
-\text{sim}(Q, D) = \cos(\theta) = \frac{Q \cdot D}{\|Q\| \|D\|}
-\]
+Cosine similarity:
+
+**sim(Q, D) = (Q · D) / (‖Q‖ × ‖D‖)**
 
 ### Interpretation of Cosine Values
 
@@ -51,12 +51,7 @@ Words and phrases naturally cluster by **semantic meaning** inside the vector sp
 
 The final ranking score is calculated as:
 
-\[
-\text{Score} =
-\text{KeywordScore(query, document)}
-+
-\cos(\text{QueryVector}, \text{DocumentVector})
-\]
+**Score = KeywordScore(query, document) "+" cos(QueryVector, DocumentVector)**
 
 ### Why Hybrid Search?
 
