@@ -2,6 +2,7 @@ import fasttext
 import numpy as np
 import os
 
+
 def calculate_semantic_similarity(model_path, text1, text2):
     # Check if model exists
     if not os.path.exists(model_path):
@@ -20,16 +21,18 @@ def calculate_semantic_similarity(model_path, text1, text2):
     # formula: (a · b) / (||a|| * ||b||)
     norm1 = np.linalg.norm(vec1)
     norm2 = np.linalg.norm(vec2)
-    
+
     if norm1 == 0 or norm2 == 0:
         return 0.0
-        
+
     similarity = np.dot(vec1, vec2) / (norm1 * norm2)
 
     return round(float(similarity), 4)
 
+
 import fasttext
 import os
+
 
 def search_in_model_vocabulary(model_path, query_word, top_n=10):
     if not os.path.exists(model_path):
@@ -43,19 +46,20 @@ def search_in_model_vocabulary(model_path, query_word, top_n=10):
     print(f"Suche nach nächsten Nachbarn für: '{query_word}'...")
     neighbors = model.get_nearest_neighbors(query_word, k=top_n)
 
-    print("\n" + "="*50)
+    print("\n" + "=" * 50)
     print(f"TOP {top_n} SEMANTISCHE NACHBARN IM MODELL")
-    print("="*50)
+    print("=" * 50)
 
     for score, word in neighbors:
         print(f"[{score:.4f}] {word}")
 
-    print("="*50)
+    print("=" * 50)
+
 
 if __name__ == "__main__":
     # Settings
     MODEL_FILE = './rwa_semantic_model_100d.bin'
-    
+
     QUERY = "gardena wandschlauchbox"
     PRODUCT = "Gardena Steckerladegerät"
 
