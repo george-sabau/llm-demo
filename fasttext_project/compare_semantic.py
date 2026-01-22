@@ -25,7 +25,7 @@ def calculate_semantic_similarity(model_path, text1, text2):
         return 0.0
         
     similarity = np.dot(vec1, vec2) / (norm1 * norm2)
-    
+
     return round(float(similarity), 4)
 
 import fasttext
@@ -56,8 +56,8 @@ if __name__ == "__main__":
     # Settings
     MODEL_FILE = './rwa_semantic_model_100d.bin'
     
-    QUERY = "granit 60x60 cm"
-    PRODUCT = "casafino stufenplatte siano scuro terrassenplatte gartenplatte betonplatte 40x40"
+    QUERY = "gardena wandschlauchbox"
+    PRODUCT = "Gardena Steckerladegerät"
 
     print("Vergleiche...")
     print(f"Q: {QUERY}")
@@ -70,4 +70,4 @@ if __name__ == "__main__":
         print(f"Semantische Ähnlichkeit: {score}")
         print("-" * 33)
 
-    search_in_model_vocabulary(MODEL_FILE, QUERY, top_n=10)
+    search_in_model_vocabulary(MODEL_FILE, "wandschlauchbox", top_n=10)
