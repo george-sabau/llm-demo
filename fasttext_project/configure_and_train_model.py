@@ -24,6 +24,7 @@ def train_model():
         del ft
         gc.collect()
 
+
     # 2. Konvertierung .bin -> .vec (Limit auf 1 Mio. Wörter)
     if not os.path.exists(REDUCED_VEC_PATH):
         print(f"--- Konvertiere in Textformat (Limit: {WORD_LIMIT} Wörter)... ---")
