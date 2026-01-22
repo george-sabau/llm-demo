@@ -53,7 +53,7 @@ def clean_and_export():
                             raw_parts.append(str(val))
 
                     # 2. Lowercase and Basic Cleaning
-                    full_text = " ".join(raw_parts).lower()
+                    full_text = " ".join(raw_parts)
                     full_text = full_text.replace("|", " ") # Remove pipes
                     
                     # 3. Deduplicate words within the line
