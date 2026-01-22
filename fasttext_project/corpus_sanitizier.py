@@ -32,16 +32,13 @@ def heavy_duty_sanitize(text: str):
     # 1. HTML cleanup
     text = clean_html(text)
 
-    # 2. Lowercase
-    text = text.lower()
-
-    # 3. Remove special characters except letters/digits
+    # 2. Remove special characters except letters/digits
     text = re.sub(r"[|,\"®™'„“”«»!+&°()\[\];:/\-]", " ", text)
 
-    # 4. Handle decimals (10,5 -> 10.5)
+    # 3. Handle decimals (10,5 -> 10.5)
     text = re.sub(r"(\d+),(\d+)", r"\1.\2", text)
 
-    # 75 Tokenize with SpaCy classic tokenizer
+    # 4 Tokenize with SpaCy classic tokenizer
     tokens = classic_tokenize(text)
 
     return " ".join(tokens)
