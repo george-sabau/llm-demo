@@ -15,7 +15,7 @@ def fileName = "saparticle_export.csv"
 // FLEXIBLESEARCH QUERY
 // ----------------------------
 def fsQuery = """
-    SELECT{a:pk} AS baseProductCode
+    SELECT {a:pk} 
     FROM {SapArticle AS a
           JOIN BaseProduct AS b ON {a.baseProduct} = {b.pk}}
     WHERE {a.baseProduct} IS NOT NULL

@@ -132,7 +132,7 @@ def fetch_product_details(page, article_code: str):
 # MAIN
 # ----------------------------
 if __name__ == "__main__":
-    input_file = "articles_baseproducts.txt"  # input file: articleCode,baseProductCode per line
+    input_file = "domain_corpus_pdp_candidates.csv"  # input file: articleCode,baseProductCode per line
     output_file = "domain_corpus_clean_v2.text"
 
     # Read input
@@ -146,10 +146,15 @@ if __name__ == "__main__":
 
         # LOGIN
         page.goto(LOGIN_URL)
+
         page.fill('input[placeholder="E-mail Adresse"]', USERNAME)
         page.fill('input[placeholder="Passwort"]', PASSWORD)
-        page.wait_for_selector("text=Login mit SSO")
-        page.click("text=Login mit SSO")
+
+        # Use locator with increased timeout
+        locator = page.locator('button:has-text("Login")')
+        locator.wait_for(state="visible", timeout=60000)  # wait up to 60s
+        locator.click()
+
         page.wait_for_load_state("networkidle")
 
         # Open output file
