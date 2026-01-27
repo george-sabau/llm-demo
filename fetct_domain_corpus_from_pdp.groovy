@@ -1,37 +1,40 @@
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery
 import de.hybris.platform.core.model.media.MediaModel
 import de.hybris.platform.servicelayer.media.MediaService
 import de.hybris.platform.servicelayer.model.ModelService
-import de.hybris.platform.servicelayer.search.FlexibleSearchQuery
-
-import java.nio.charset.StandardCharsets
-
-// ----------------------------
-// CONFIGURATION
-// ----------------------------
-def mediaCode = "saparticle_export"
-def fileName = "saparticle_export.csv"
 
 // ----------------------------
 // FLEXIBLESEARCH QUERY
 // ----------------------------
 def fsQuery = """
-    SELECT {a:pk} 
+    SELECT 
+        {a:pk}
     FROM {SapArticle AS a
-          JOIN BaseProduct AS b ON {a.baseProduct} = {b.pk}}
-    WHERE {a.baseProduct} IS NOT NULL
+          JOIN BaseProduct AS b ON {a:baseProduct} = {b:pk}}
+    WHERE {a:baseProduct} IS NOT NULL
 """
 
 def query = new FlexibleSearchQuery(fsQuery)
-def results = flexibleSearchService.search(query)
+def results = flexibleSearchService.search(query).getResult()
 
-def filtered = results.getResult().findAll { it.order == 0 } // or map correctly
 // ----------------------------
-// CREATE CSV CONTENT
+// GROUP BY BASE PRODUCT
+// ----------------------------
+def grouped = results.groupBy { it.baseProduct }
+def selected = []
+
+grouped.each { baseCode, articles ->
+    // Pick order='0' first if exists, otherwise first
+    def chosen = articles.find { it.order == '0' } ?: articles[0]
+    selected << chosen
+}
+
+// ----------------------------
+// CREATE CSV
 // ----------------------------
 def csv = new StringBuilder()
-csv << "articleCode,baseProductCode\n"
-filtered.each { a ->
-    csv << "${a.code},${a.baseProduct.code}\n"
+selected.each { row ->
+    csv << "${row.code},${row.baseProduct.code}\n"
 }
 
 // ----------------------------
@@ -40,12 +43,10 @@ filtered.each { a ->
 def mediaService = spring.getBean("mediaService", MediaService)
 def modelService = spring.getBean("modelService", ModelService)
 
-MediaModel media = mediaService.getMedia("domainCorpus")
+MediaModel media = mediaService.getMedia("domainCorpus") // replace with your media code
 
-// Store CSV bytes in Media
-def bytes = csv.toString().getBytes(StandardCharsets.UTF_8)
+def bytes = csv.toString().getBytes("UTF-8")
 mediaService.setDataForMedia(media, bytes)
 modelService.save(media)
 
-println "CSV successfully stored in media with code 'domainCorpus'!"
-println "Download it from HAC or backoffice via media download URL."
+println "CSV successfully stored in media 'domainCorpus'"

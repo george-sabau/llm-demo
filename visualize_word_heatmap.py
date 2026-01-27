@@ -1,11 +1,10 @@
-import fasttext
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
 import os
+
 import fasttext
-from typing import List, Tuple
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
 
 def plot_from_bin(model_path, num_words=50):
     if not os.path.exists(model_path):
