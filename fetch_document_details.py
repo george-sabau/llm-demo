@@ -29,7 +29,7 @@ def clean_html(html: str) -> str:
         div.decompose()
     for h3 in soup.find_all("h3"):
         h3.decompose()
-    unwanted_keywords = ["TA", "Merkzettel 1", "Merkzettel 2", "MZ1", "MZ2", "Tag"]
+    unwanted_keywords = ["TA", "Merkzettel 1", "Merkzettel 2", "MZ1", "MZ2", "Tag","MO","Monat","FB", "Frühbezug"]
     for elem in soup.find_all(lambda tag: tag.name in ["div", "span"]):
         if elem.get_text(strip=True) in unwanted_keywords:
             elem.decompose()

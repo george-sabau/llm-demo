@@ -16,7 +16,10 @@ Stelle sicher, dass `curl` und `gzip` auf deinem System verfügbar sind (auf mac
 Führe den folgenden Befehl in deinem Terminal aus, um alle notwendigen Abhängigkeiten für das Training, die API-Kommunikation und die Visualisierungen zu installieren:
 
 ```bash
-python3.9 -m pip install requests numpy pandas matplotlib seaborn scikit-learn fasttext-wheel
+python -m venv venv
+cd venv
+. bin/activate
+pip install requests numpy pandas matplotlib seaborn scikit-learn fasttext-wheel
 ```
 
 | Bibliothek | Zweck |
