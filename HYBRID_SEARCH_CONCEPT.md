@@ -24,12 +24,12 @@ Dieses Projekt zeigt einen **hybriden Suchansatz**, der **keyword-basierte Suche
 - Gardena Wandschlauchbox für den Garten
 
 ### Gut für Keyword-Suche
-- Hevi Universalsitzbezug FS1
+- Hevi Universalsitzbezug FS1 (genaue Übereinstimmung)
 - FS1 Universal
 - Wandschlauchbox
 - Kettensäge Spielzeug
-- John Deere Sitzbezug für Fahrersitz
-- Stossdämpfer passend Fahrersitz für John Deere
+- John Deere Sitzbezug für Fahrersitz (genaue Übereinstimmung)
+- Stossdämpfer passend Fahrersitz für John Deere (s.o.)
 
 > **Fazit:** Keyword-Suche scheitert oft bei langen, zusammengesetzten oder abgekürzten Anfragen. Semantische Suche kann die Konzepte erkennen. Mit dem Hybriden-Suchansatz können wir
 > die problematischen Such-Beispiele gut abdecken.
