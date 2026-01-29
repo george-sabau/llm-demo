@@ -4,12 +4,45 @@ import os
 import gc
 
 # --- KONFIGURATION ---
-CORPUS_FILE = 'domain_corpus_clean.txt'
+RAW_CORPUS_FILE = '../domain_corpus_v2.txt'
+CLEAN_CORPUS_FILE = '../domain_corpus_v2_clean.txt'
+
 BASE_MODEL_PATH = '../cc.de.300.bin'
 REDUCED_MODEL_PATH = 'cc.de.100.bin'
 REDUCED_VEC_PATH = 'cc.de.100.vec'
 FINAL_MODEL_NAME = 'rwa_semantic_model_100d.bin'
 WORD_LIMIT = 100000 #
+
+def prepare_corpus(input_file, output_file):
+    print(f"--- Bereinige Korpus: {input_file} -> {output_file} ---")
+    kept = 0
+    skipped = 0
+
+    with open(input_file, 'r', encoding='utf-8') as fin, \
+            open(output_file, 'w', encoding='utf-8') as fout:
+
+        for line in fin:
+            line = line.strip()
+            if not line:
+                skipped += 1
+                continue
+
+            if '||' not in line:
+                skipped += 1
+                continue
+
+            _, text = line.split('||', 1)
+            text = text.strip()
+
+            if not text:
+                skipped += 1
+                continue
+
+            fout.write(text + "\n")
+            kept += 1
+
+    print(f"✔ Behaltene Zeilen: {kept}")
+    print(f"✘ Übersprungene Zeilen: {skipped}")
 
 def train_model():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -45,11 +78,15 @@ def train_model():
         del model
         gc.collect()
 
+    # 2.5
+    if not os.path.exists(CLEAN_CORPUS_FILE):
+        prepare_corpus(RAW_CORPUS_FILE, CLEAN_CORPUS_FILE)
+
     # 3. Fine-Tuning
-    print(f"--- Starte Fine-Tuning mit {CORPUS_FILE} ---")
+    print(f"--- Starte Fine-Tuning mit {CLEAN_CORPUS_FILE} ---")
     # minCount=2 filtert "Einmal-Fehler" aus deinem Katalog
     model = fasttext.train_unsupervised(
-        input=CORPUS_FILE,
+        input=CLEAN_CORPUS_FILE,
         model='skipgram',
         dim=100,
         epoch=30,
