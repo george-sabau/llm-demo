@@ -22,6 +22,7 @@ Dieses Projekt zeigt einen **hybriden Suchansatz**, der **keyword-basierte Suche
 - Stossdämpfer für John Deere
 - Motorkettensäge Kinder
 - Gardena Wandschlauchbox für den Garten
+- t-stück 20 mm (wenig Relevanz; kaum Teile mit 20 mm Durchmesser)
 
 ### Gut für Keyword-Suche
 - Hevi Universalsitzbezug FS1 (genaue Übereinstimmung)
